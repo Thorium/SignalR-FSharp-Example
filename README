@@ -1,0 +1,33 @@
+Example of SignalR 1.1.1 with F-Sharp and Silverlight 5:
+
+- SignalR is a library on top of WebSockets, which is HTML5 API that 
+  enables bi-directional communication between the browser and server.
+  SignalR will fallback to other techniques and technologies 
+  when WebSockets are not available.
+  http://signalr.net/
+  
+- F-Sharp (F#) is multiparadigm (functional-first) programming language 
+  mainly for .NET environment.
+  http://fsharp.org/
+  
+- This sample uses Reactive Extensions 2.1 to communicate with SignalR, 
+  on both client and server side. Reactive Extensions is a library to 
+  compose asynchronous and event-based programs using observable 
+  collections and LINQ-style query operators.
+  http://msdn.microsoft.com/en-us/data/gg577609.aspx
+
+- For server side:  
+  This could work purely from F# as Owin (Windows Console Application) 
+  but now server has been called from empty ASP.NET C# Web Application.
+
+- For Client side:
+  Silverlight 5.0 application using F#-library
+  and Silverlight 5.0 XAML/C# application to show the user interface.
+  http://www.silverlight.net
+  
+- This proof of concept/sample/tutorial/demo is developed with 
+  Visual Studio 2012. References are resolved via NuGet. 
+  F# compiler won't auto-restore packages on compile. 
+  So go first to Tools -> Library Package Manager -> NuGet
+  and press "Restore" to restore all the references.
+  
