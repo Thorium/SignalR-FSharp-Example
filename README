@@ -1,9 +1,9 @@
-Example of SignalR 1.1.1 with F-Sharp and Silverlight 5:
+Example of SignalR 1.1.1 with F-Sharp (and Silverlight 5):
 
-- SignalR is a library on top of WebSockets, which is HTML5 API that 
-  enables bi-directional communication between the browser and server.
-  SignalR will fallback to other techniques and technologies 
-  when WebSockets are not available.
+- SignalR is a library (for web-based Publish/Subscribe -pattern) on top 
+  of WebSockets, which is HTML5 API that enables bi-directional communication 
+  between the browser and server. SignalR will fallback to other techniques and 
+  technologies when WebSockets are not available.
   http://signalr.net/
   
 - F-Sharp (F#) is multiparadigm (functional-first) programming language 
@@ -17,10 +17,11 @@ Example of SignalR 1.1.1 with F-Sharp and Silverlight 5:
   http://msdn.microsoft.com/en-us/data/gg577609.aspx
 
 - For server side:  
-  This could work purely from F# as Owin (Windows Console Application) 
-  but now server has been called from empty ASP.NET C# Web Application.
+  This could work purely from F# as Owin (http://owin.org/) console application 
+  but now Owin-code is in comments and F#-server-side is called from an
+  empty ASP.NET C# Web Application.
 
-- For Client side:
+- For client side:
   Silverlight 5.0 application using F#-library
   and Silverlight 5.0 XAML/C# application to show the user interface.
   http://www.silverlight.net
@@ -29,5 +30,5 @@ Example of SignalR 1.1.1 with F-Sharp and Silverlight 5:
   Visual Studio 2012. References are resolved via NuGet. 
   F# compiler won't auto-restore packages on compile. 
   So go first to Tools -> Library Package Manager -> NuGet
-  and press "Restore" to restore all the references.
+  and press "Restore" to restore all the references, and then rebuild.
   
