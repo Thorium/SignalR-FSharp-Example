@@ -5,8 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400">
-
     <Grid x:Name="LayoutRoot" Background="White">
+
         <ListBox HorizontalAlignment="Left" Height="280" Margin="10,10,0,0" VerticalAlignment="Top" Width="380" x:Name="ResultBox" >
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -16,6 +16,6 @@
                 </LinearGradientBrush>
             </ListBox.Background>
         </ListBox>
-
+        <HyperlinkButton x:Name="LinkJs" Content="To Javascript" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,10,10,10" Background="LightGray" TargetName="_blank" NavigateUri="/JavaScriptTestUITestPage.html" />
     </Grid>
 </UserControl>

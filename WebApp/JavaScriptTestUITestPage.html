@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JavascriptTestUI</title>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.0.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-1.1.1.min.js"></script>
+    <!--script src="http://localhost:8080/signalrHub/hubs" type="text/javascript"></script-->
+    <script src="/signalrHub/hubs" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var hub;
+
+            $.connection.hub.url = '/signalrHub';
+            //$.connection.hub.url = 'http://localhost:8080/signalrHub';
+
+            hub = $.connection.myhub;
+            if (hub) {
+                // Define the myCustomClientFunction on the client.
+                hub.client.myCustomClientFunction = function (value) {
+                    $('#results').append('<p>' + value + '</p>');
+                };
+
+                $.connection.hub.start().
+                  done(function () {
+                      $('#submit').on('click', function () {
+                          // Call the server function
+                          hub.server.myCustomServerFunction($('#source').val());
+                      });
+                  });
+            }
+            else {
+                console.log('hub not found');
+            }
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="source" />
+    <button type="button" id="submit" value="submit">Send</button>
+    <button type="button" onclick="document.location.href='SilverlightTestUITestPage.html'">To Silverlight</button>
+    <div id="results"></div>
+</body>
+</html>
