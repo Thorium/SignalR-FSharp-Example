@@ -15,8 +15,12 @@
 open SignalRSilverlightClient
 
 
-let client : System.IObservable<string> = 
-    
-    MakeConnection owinurl
+let client1 : System.IObservable<string> =     
+    MakePersistentConnection owinurl
 
-client |> Observable.subscribe System.Console.WriteLine
+client1 |> Observable.subscribe System.Console.WriteLine
+
+let client2 : System.IObservable<string> =     
+    MakeHubConnection owinurl [|box("hello there!")|]
+
+client2 |> Observable.subscribe System.Console.WriteLine
