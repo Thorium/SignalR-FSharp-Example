@@ -40,7 +40,6 @@ let MakePersistentConnection url =
 
 
 // Hub uses JSON replies.
-// You may want to parse results. :-)
 open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 
@@ -55,7 +54,7 @@ let MakeHubConnection url msgToSend =
         myhub.Invoke("MyCustomServerFunction", msgToSend).Wait()
         result
 
-    connection.add_Received(fun r -> gotResult.OnNext(r))
+    connection.add_Received(fun json -> JObject.Parse(json).["A"].First.ToString() |> gotResult.OnNext)
     connection.add_Error(fun e -> gotResult.OnError(e))
     //connection.add_Reconnected(fun r -> ignore())
     
