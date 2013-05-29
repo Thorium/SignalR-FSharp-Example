@@ -34,8 +34,8 @@ let MakePersistentConnection url =
 
     connection.Start()
         .ContinueWith(handleExceptions, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default)
+        //.ContinueWith(Func<Task, Task>(fun s -> connection.Send "hello there"))
     |> ignore
-        
     gotResult :> IObservable<string>
 
 
@@ -49,15 +49,15 @@ let MakeHubConnection url msgToSend =
 
     let connection = new HubConnection(url + "/signalrHub")
     let myhub = connection.CreateHubProxy("myhub")
-    let invokeHub (task:Task) = 
-        let result = myhub.Subscribe("myCustomClientFunction")
-        myhub.Invoke("MyCustomServerFunction", msgToSend).Wait()
-        result
 
-    connection.add_Received(fun json -> JObject.Parse(json).["A"].First.ToString() |> gotResult.OnNext)
+    myhub.Subscribe("myCustomClientFunction").add_Received(fun json -> json.[0].ToString() |> gotResult.OnNext)
+    //connection.add_Received(fun json -> JObject.Parse(json).["A"].First.ToString() |> gotResult.OnNext)
     connection.add_Error(fun e -> gotResult.OnError(e))
     //connection.add_Reconnected(fun r -> ignore())
     
+    let invokeHub (task:Task) = 
+        myhub.Invoke("MyCustomServerFunction", msgToSend)
+
     let handleExceptions (task:Task) =
         match task.Exception with
         | null -> "none" |> ignore
@@ -65,7 +65,7 @@ let MakeHubConnection url msgToSend =
 
     connection.Start()
         .ContinueWith(handleExceptions, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default)
-        .ContinueWith(Func<Task, Subscription>(invokeHub))
+        .ContinueWith(Func<Task, Task>(invokeHub))
     |> ignore
         
     gotResult :> IObservable<string>
