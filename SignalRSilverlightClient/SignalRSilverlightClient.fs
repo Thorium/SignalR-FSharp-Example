@@ -16,6 +16,8 @@ open System.Reactive.Subjects
 open System.Threading.Tasks
 open System.Threading
 
+type Connection = {SendRequest: Func<string, Task>; ResultFeed: IObservable<string>}
+
 // SignalR supports two kinds of connections: Hub and PersistentConnection
 
 let MakePersistentConnection url =
@@ -26,6 +28,9 @@ let MakePersistentConnection url =
     connection.add_Received(fun r -> gotResult.OnNext(r))
     connection.add_Error(fun e -> gotResult.OnError(e))
     //connection.add_Reconnected(fun r -> ignore())
+
+    let send msgToSend = 
+        connection.Send(msgToSend)
     
     let handleExceptions (task:Task) =
         match task.Exception with
@@ -36,14 +41,15 @@ let MakePersistentConnection url =
         .ContinueWith(handleExceptions, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default)
         //.ContinueWith(Func<Task, Task>(fun s -> connection.Send "hello there"))
     |> ignore
-    gotResult :> IObservable<string>
+
+    {SendRequest = Func<string, Task>(send); ResultFeed = gotResult :> IObservable<string> }
 
 
 // Hub uses JSON replies.
 open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 
-let MakeHubConnection url msgToSend =
+let MakeHubConnection url =
 
     let gotResult = new Subject<string>()
 
@@ -55,8 +61,9 @@ let MakeHubConnection url msgToSend =
     connection.add_Error(fun e -> gotResult.OnError(e))
     //connection.add_Reconnected(fun r -> ignore())
     
-    let invokeHub (task:Task) = 
-        myhub.Invoke("MyCustomServerFunction", msgToSend)
+    let invokeHub msgToSend =
+        let param = box(msgToSend) 
+        myhub.Invoke("MyCustomServerFunction", param)
 
     let handleExceptions (task:Task) =
         match task.Exception with
@@ -65,7 +72,7 @@ let MakeHubConnection url msgToSend =
 
     connection.Start()
         .ContinueWith(handleExceptions, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default)
-        .ContinueWith(Func<Task, Task>(invokeHub))
+        //.ContinueWith(Func<Task, Task>(fun _ -> invokeHub "Hello there!"))
     |> ignore
         
-    gotResult :> IObservable<string>
+    {SendRequest = Func<string, Task>(invokeHub); ResultFeed = gotResult :> IObservable<string> }

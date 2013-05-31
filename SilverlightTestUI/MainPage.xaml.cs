@@ -7,6 +7,8 @@ namespace SilverlightTestUI
 {
     public partial class MainPage : UserControl
     {
+        private readonly SignalRSilverlightClient.Connection connection;
+
         public MainPage()
         {
             InitializeComponent();
@@ -15,13 +17,18 @@ namespace SilverlightTestUI
             ResultBox.ItemsSource = source;
 
             //Use Hub or PersistentConnection:
-            var connection = SignalRSilverlightClient.MakePersistentConnection(SignalRSilverlightClient.aspnetUrl);
-            //var connection = SignalRSilverlightClient.MakeHubConnection(SignalRSilverlightClient.aspnetUrl, new object[]{"Hello from client"});
+            connection = SignalRSilverlightClient.MakePersistentConnection(SignalRSilverlightClient.aspnetUrl);
+            //connection = SignalRSilverlightClient.MakeHubConnection(SignalRSilverlightClient.aspnetUrl);
             source.Add("Signal-R Test UI:");
 
-            connection.ObserveOnDispatcher().Subscribe(
+            connection.ResultFeed.ObserveOnDispatcher().Subscribe(
                 onNext: r => source.Add(r),
                 onError: e => source.Add(e.ToString()));
+        }
+
+        private void Send_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            connection.SendRequest(InputText.Text);
         }
     }
 }

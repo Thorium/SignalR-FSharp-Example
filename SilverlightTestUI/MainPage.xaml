@@ -7,7 +7,7 @@
     d:DesignHeight="300" d:DesignWidth="400">
     <Grid x:Name="LayoutRoot" Background="White">
 
-        <ListBox HorizontalAlignment="Left" Height="280" Margin="10,10,0,0" VerticalAlignment="Top" Width="380" x:Name="ResultBox" >
+        <ListBox HorizontalAlignment="Left" Height="255" Margin="10,35,0,0" VerticalAlignment="Top" Width="380" x:Name="ResultBox" >
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.474"/>
@@ -16,6 +16,10 @@
                 </LinearGradientBrush>
             </ListBox.Background>
         </ListBox>
-        <HyperlinkButton x:Name="LinkJs" Content="To Javascript" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,10,10,10" Background="LightGray" TargetName="_blank" NavigateUri="/JavaScriptTestUITestPage.html" />
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+            <TextBox x:Name="InputText" Height="25" VerticalAlignment="Top" Margin="10,10,0,0" Width="178" />
+            <Button x:Name="Send" Width="75" Height="25" Content="Send" VerticalAlignment="Top" Margin="10,10,10,0" Click="Send_Click" />
+            <HyperlinkButton x:Name="LinkJs" Content="To Javascript" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,10,10,10" Background="LightGray" TargetName="_blank" NavigateUri="/JavaScriptTestUITestPage.html" />
+        </StackPanel>
     </Grid>
 </UserControl>

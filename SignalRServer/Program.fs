@@ -22,6 +22,9 @@ module MyServer =
         override x.OnConnected(req,id) =
             this.Connection.Send(id, "Welcome!") |> ignore
             base.OnConnected(req,id)
+        override x.OnReceived(req,id,data) =
+            this.Connection.Send(id, "Thanks for " + data) |> ignore
+            base.OnReceived(req,id,data)
 
     [<HubName("myhub")>]
     type MyHub() as this = 
