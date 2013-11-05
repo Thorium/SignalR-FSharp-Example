@@ -1,7 +1,6 @@
 ﻿//SignalR:
-#r "../packages/Newtonsoft.Json.5.0.5/lib/net45/Newtonsoft.Json.dll"
-#r "../packages/Microsoft.AspNet.SignalR.Owin.1.1.1/lib/net45/Microsoft.AspNet.SignalR.Owin.dll"
-#r "../packages/Microsoft.AspNet.SignalR.Core.1.1.1/lib/net40/Microsoft.AspNet.SignalR.Core.dll"
+#r "../packages/Newtonsoft.Json.5.0.8/lib/net45/Newtonsoft.Json.dll"
+#r "../packages/Microsoft.AspNet.SignalR.Core.2.0.0/lib/net45/Microsoft.AspNet.SignalR.Core.dll"
 
 //Reactive Extensions:
 #r "System.ComponentModel.Composition.dll"
@@ -15,16 +14,20 @@
 
 //ASP.NET Web Application routing (method SetupRouting):
 #r "System.Web"
-#r "../packages/Microsoft.AspNet.SignalR.SystemWeb.1.1.1/lib/net45/Microsoft.AspNet.SignalR.SystemWeb.dll"
+#r "../packages/Microsoft.AspNet.SignalR.SystemWeb.2.0.0/lib/net45/Microsoft.AspNet.SignalR.SystemWeb.dll"
 
 //OWIN host:
 #r "../packages/Owin.1.0/lib/net40/Owin.dll"
-#r "../packages/Microsoft.Owin.Hosting.0.21.0-pre/lib/net40/Microsoft.Owin.Hosting.dll"
-//#r "../packages/Microsoft.Owin.Host.SystemWeb.1.0.1/lib/net45/Microsoft.Owin.Host.SystemWeb.dll"
-#r "../packages/Microsoft.AspNet.SignalR.Owin.1.1.1/lib/net45/Microsoft.AspNet.SignalR.Owin.dll"
-#r "../packages/Microsoft.Owin.Host.HttpListener.0.21.0-pre/lib/net45/Microsoft.Owin.Host.HttpListener.dll"
+#r "../packages/Microsoft.Owin.Hosting.2.0.1/lib/net45/Microsoft.Owin.Hosting.dll"
+//#r "../packages/Microsoft.Owin.Host.SystemWeb.2.0.1/lib/net45/Microsoft.Owin.Host.SystemWeb.dll"
+//#r "../packages/Microsoft.AspNet.SignalR.Owin.1.1.1/lib/net45/Microsoft.AspNet.SignalR.Owin.dll"
+#r "../packages/Microsoft.Owin.Host.HttpListener.2.0.1/lib/net45/Microsoft.Owin.Host.HttpListener.dll"
+#r "../packages/Microsoft.Owin.Security.2.0.1/lib/net45/Microsoft.Owin.Security.dll"
+#r "../packages/Microsoft.Owin.2.0.1/lib/net45/Microsoft.Owin.dll"
+
 
 #load "TaskHelper.fs"
+
 
 #load "Program.fs"
 open SignalRServer.MyServer

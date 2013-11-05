@@ -8,19 +8,19 @@
 #r "../packages/Rx-Linq.2.1.30214.0/lib/Net45/System.Reactive.Linq.dll"
 
 //SignalR Client:
-#r "../packages/Newtonsoft.Json.5.0.5/lib/net45/Newtonsoft.Json.dll"
-#r "../packages/Microsoft.AspNet.SignalR.Client.1.1.1/lib/net45/Microsoft.AspNet.SignalR.Client.dll"
+#r "../packages/Newtonsoft.Json.5.0.8/lib/net45/Newtonsoft.Json.dll"
+#r "../packages/Microsoft.AspNet.SignalR.Client.2.0.0/lib/net45/Microsoft.AspNet.SignalR.Client.dll"
 
 #load "SignalRSilverlightClient.fs"
 open SignalRSilverlightClient
 
 
-let client1 : System.IObservable<string> =     
+let client1 : Connection =     
     MakePersistentConnection owinurl
 
-client1 |> Observable.subscribe System.Console.WriteLine
+client1.ResultFeed |> Observable.subscribe System.Console.WriteLine
 
-let client2 : System.IObservable<string> =     
-    MakeHubConnection owinurl [|box("hello there!")|]
+let client2 : Connection =     
+    MakeHubConnection owinurl // [|box("hello there!")|]
 
 client2 |> Observable.subscribe System.Console.WriteLine

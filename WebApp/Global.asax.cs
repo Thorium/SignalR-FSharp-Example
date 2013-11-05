@@ -6,7 +6,8 @@ namespace WebApp
     {
         protected void Application_Start(object sender, EventArgs e)
         {
-            SignalRServer.MyServer.SetupRouting();
+            //SignalR-1.1.3:
+            //SignalRServer.MyServer.SetupRouting();
         }
 
         protected void Session_Start(object sender, EventArgs e){}

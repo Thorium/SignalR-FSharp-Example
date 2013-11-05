@@ -17,8 +17,8 @@ namespace SilverlightTestUI
             ResultBox.ItemsSource = source;
 
             //Use Hub or PersistentConnection:
-            connection = SignalRSilverlightClient.MakePersistentConnection(SignalRSilverlightClient.aspnetUrl);
-            //connection = SignalRSilverlightClient.MakeHubConnection(SignalRSilverlightClient.aspnetUrl);
+            //connection = SignalRSilverlightClient.MakePersistentConnection(SignalRSilverlightClient.aspnetUrl);
+            connection = SignalRSilverlightClient.MakeHubConnection(SignalRSilverlightClient.aspnetUrl);
             source.Add("Signal-R Test UI:");
 
             connection.ResultFeed.ObserveOnDispatcher().Subscribe(

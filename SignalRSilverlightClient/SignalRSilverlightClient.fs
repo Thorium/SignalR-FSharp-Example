@@ -8,6 +8,7 @@ let aspnetUrl =
 #endif
 let owinurl = "http://localhost:8080/"
 
+open Microsoft.AspNet.SignalR.Client
 open Microsoft.AspNet.SignalR.Client.Hubs
 open System
 open System.Linq
@@ -24,12 +25,14 @@ let MakePersistentConnection url =
 
     let gotResult = new Subject<string>()    
     let connection = new Microsoft.AspNet.SignalR.Client.Connection(url + "/signalrConn")
-
+    
     connection.add_Received(fun r -> gotResult.OnNext(r))
     connection.add_Error(fun e -> gotResult.OnError(e))
     //connection.add_Reconnected(fun r -> ignore())
 
     let send msgToSend = 
+//        match connection.State with
+//        | ConnectionState.Connected -> 
         connection.Send(msgToSend)
     
     let handleExceptions (task:Task) =

@@ -1,4 +1,4 @@
-**Example of SignalR 1.1.1 with F-Sharp (and Silverlight 5 or Javascript):**
+**Example of SignalR with F-Sharp (and Silverlight 5 or Javascript):**
 
 - SignalR is a library (for web-based Publish/Subscribe -pattern) on top 
   of WebSockets, which is HTML5 API that enables bi-directional communication 
@@ -18,8 +18,8 @@
 
 - For server side:  
   This could work purely from F# as Owin ([http://owin.org/][4]) console application 
-  but now Owin-code is in comments and F#-server-side is called from an
-  empty ASP.NET C# Web Application. (Still you can start OWin from F# Interactive...)
+  but now F#-server-side is called from an empty ASP.NET C# Web Application. 
+  (You can start OWin from F# Interactive...)
 
 - For client side:
   Silverlight 5.0 application using F#-library

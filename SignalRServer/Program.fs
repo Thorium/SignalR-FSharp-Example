@@ -12,6 +12,7 @@ open System.Web.Routing
 
 open Dynamic
 open TaskHelper
+open System.Threading.Tasks
 
 module MyServer =
 
@@ -33,7 +34,8 @@ module MyServer =
             base.OnConnected()
         // Define the MyCustomServerFunction on the server.
         member x.MyCustomServerFunction(fromClient : string) : unit =
-            this.Clients.Caller?myCustomClientFunction("Thanks for " + fromClient)
+            let (t:Task) = this.Clients.Caller?myCustomClientFunction("Thanks for " + fromClient)
+            t.Wait()
 
     let sendAll msg = 
             GlobalHost.ConnectionManager.GetConnectionContext<MyConnection>().Connection.Broadcast(msg) 
@@ -43,7 +45,7 @@ module MyServer =
             
 
     //Send some responses from server to client...
-    let SignalRCommunication() =
+    let SignalRCommunicationSendPings() =
 
         //Send first message
         sendAll("Hello world!")
@@ -54,24 +56,32 @@ module MyServer =
 
 //------------------------------------------------------------------------------------------------------------
 // Options of hosting:
-// A) ASP.NET Web Application. Setup routing here, this is called from Global.asax.cs
-    let SetupRouting() =
-        RouteTable.Routes.MapConnection<MyConnection>("signalrConn", "signalrConn") |> ignore
-        
-        let hubc = new HubConfiguration(EnableDetailedErrors = true, EnableCrossDomain = true)
-        RouteTable.Routes.MapHubs("/signalrHub", hubc) |> ignore
-
-        SignalRCommunication()
-
+// A) ASP.NET Web Application
 // B) OWIN server: Command-line application
+
+// Signal-R 1.1.3: ASP.NET Web Application. Setup routing here, this is called from Global.asax.cs
+//    let SetupRouting() =
+//        RouteTable.Routes.MapConnection<MyConnection>("signalrConn", "signalrConn") |> ignore
+//        
+//        let hubc = new HubConfiguration(EnableDetailedErrors = true, EnableCrossDomain = true)
+//        RouteTable.Routes.MapHubs("/signalrHub", hubc) |> ignore
+//        SignalRCommunicationSendPings()
+
+// Signal-R 2.0: Use OWIN:
 //    (If you use Silverlight client, then you would need to supply clientaccesspolicy.xml and crossdomain.xml)
     open Microsoft.Owin.Hosting
     type MyWebStartup() =
         member x.Configuration(app:Owin.IAppBuilder) =
-            let config = new HubConfiguration(EnableCrossDomain = true, EnableDetailedErrors = true)
-            Owin.OwinExtensions.MapHubs(app, config) |> ignore
+            Owin.OwinExtensions.MapSignalR<MyConnection>(app, "/signalrConn") |> ignore
+
+            let config = new HubConfiguration(EnableDetailedErrors = true)
+            Owin.OwinExtensions.MapSignalR(app, "/signalrHub", config) |> ignore
+            //SignalRCommunicationSendPings()
             ()
-    
+
+    [<assembly: Microsoft.Owin.OwinStartup(typeof<MyWebStartup>)>]
+    do()
+
     // If you want to run this as console application, then uncomment EntryPoint-attribute and
     // from SignalRServer project properties change this application "Output Type" to: Console Application
     // (But then this will be .exe-file instead of dll-file and you can't reference it from 
@@ -81,8 +91,7 @@ module MyServer =
         //Note that server and client has to use the same port
         let url = "http://localhost:8080"
         // Here you would need new empty C#-class just for configuration: ServerStartup.MyWebStartup:
-        use app =  WebApplication.Start<MyWebStartup>(url) 
-        SignalRCommunication()
+        use app =  WebApp.Start<MyWebStartup>(url) 
         Console.WriteLine "Server running..."
         Console.ReadLine() |> ignore
         app.Dispose()
