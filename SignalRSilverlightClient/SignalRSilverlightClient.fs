@@ -56,10 +56,13 @@ let MakeHubConnection url =
 
     let gotResult = new Subject<string>()
 
+    //let connection = new HubConnection(url + "/signalrHub", TraceLevel = TraceLevels.All, TraceWriter = Console.Out, CookieContainer = new System.Net.CookieContainer())
     let connection = new HubConnection(url + "/signalrHub")
     let myhub = connection.CreateHubProxy("myhub")
 
-    myhub.Subscribe("myCustomClientFunction").add_Received(fun json -> json.[0].ToString() |> gotResult.OnNext)
+    //myhub.Subscribe("myCustomClientFunction").add_Received(fun json -> json.[0].ToString() |> gotResult.OnNext)
+    myhub.On<string>("myCustomClientFunction", fun str -> str |> gotResult.OnNext) |> ignore
+    
     //connection.add_Received(fun json -> JObject.Parse(json).["A"].First.ToString() |> gotResult.OnNext)
     connection.add_Error(fun e -> gotResult.OnError(e))
     //connection.add_Reconnected(fun r -> ignore())

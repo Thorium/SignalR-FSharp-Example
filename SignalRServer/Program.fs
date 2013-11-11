@@ -70,14 +70,26 @@ module MyServer =
 // Signal-R 2.0: Use OWIN:
 //    (If you use Silverlight client, then you would need to supply clientaccesspolicy.xml and crossdomain.xml)
     open Microsoft.Owin.Hosting
+    let config = new HubConfiguration(EnableDetailedErrors = true)
+
     type MyWebStartup() =
         member x.Configuration(app:Owin.IAppBuilder) =
             Owin.OwinExtensions.MapSignalR<MyConnection>(app, "/signalrConn") |> ignore
 
-            let config = new HubConfiguration(EnableDetailedErrors = true)
             Owin.OwinExtensions.MapSignalR(app, "/signalrHub", config) |> ignore
             //SignalRCommunicationSendPings()
             ()
+
+////Cross-Origin Resource Sharing (Cors) support:
+//        member x.Configuration(app:Owin.IAppBuilder) =
+//            Owin.MapExtensions.Map(app, "/signalrHub", 
+//                fun map -> 
+//                    do Owin.CorsExtensions.UseCors(map, Microsoft.Owin.Cors.CorsOptions.AllowAll) |> ignore
+//                    Owin.OwinExtensions.RunSignalR(map, config);
+//                ) |> ignore
+//            //SignalRCommunicationSendPings()
+//            ()
+
 
     [<assembly: Microsoft.Owin.OwinStartup(typeof<MyWebStartup>)>]
     do()
