@@ -1,6 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0C38153F-BADE-4DBB-8337-E2A414D0599A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SignalRServer", "SignalRServer\SignalRServer.fsproj", "{B79D6D3C-23FA-4D27-AEAD-DC2391000220}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SignalRSilverlightClient", "SignalRSilverlightClient\SignalRSilverlightClient.fsproj", "{3BE39CBE-6F97-4D0F-B559-BB065562BEF6}"
@@ -8,13 +17,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilverlightTestUI", "SilverlightTestUI\SilverlightTestUI.csproj", "{25E1347B-C896-4440-8C57-3557535DF4CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{0CEF79E9-0A53-40A5-829B-B9EA7EBFAE54}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0C38153F-BADE-4DBB-8337-E2A414D0599A}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
