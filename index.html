@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Signalr-fsharp-example by Thorium</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/Thorium/SignalR-FSharp-Example">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Signalr-fsharp-example</h1>
+            <h2>Example of Signal-R 2.0 with FSharp (F# server side and both Silverlight 5 (F#) and Javascript clients) and Rx</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/Thorium/SignalR-FSharp-Example/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/Thorium/SignalR-FSharp-Example/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <p><strong>Example of SignalR with F-Sharp (and Silverlight 5 or Javascript):</strong></p>
+
+<ul>
+<li><p>SignalR is a library (for web-based Publish/Subscribe -pattern) on top 
+of WebSockets, which is HTML5 API that enables bi-directional communication 
+between the browser and server. SignalR will fallback to other techniques and 
+technologies when WebSockets are not available.
+<a href="http://signalr.net/">http://signalr.net/</a></p></li>
+<li><p>F-Sharp (F#) is multiparadigm (functional-first) programming language 
+mainly for .NET environment.
+<a href="http://fsharp.org/">http://fsharp.org/</a></p></li>
+<li><p>This sample uses Reactive Extensions 2.1 to communicate with SignalR, 
+on both client and server side. Reactive Extensions is a library to 
+compose asynchronous and event-based programs using observable 
+collections and LINQ-style query operators.
+<a href="http://msdn.microsoft.com/en-us/data/gg577609.aspx">http://msdn.microsoft.com/en-us/data/gg577609.aspx</a></p></li>
+<li><p>For server side:<br>
+This could work purely from F# as Owin (<a href="http://owin.org/">http://owin.org/</a>) console application 
+but now F#-server-side is called from an empty ASP.NET C# Web Application. 
+(You can start OWin from F# Interactive...)</p></li>
+<li><p>For client side:
+Silverlight 5.0 application using F#-library
+and Silverlight 5.0 XAML/C# application to show the user interface.
+<a href="http://www.silverlight.net">http://www.silverlight.net</a>
+There is also jQuery/JavaScript test page, if you don't want to use Silverlight.</p></li>
+<li><p>This proof of concept/sample/tutorial/demo is developed with 
+Visual Studio 2012. References are resolved via NuGet. 
+F# compiler won't auto-restore packages on compile. 
+<strong>So go first to Tools -&gt; Library Package Manager -&gt; NuGet
+and press "Restore" to restore all the references, and then rebuild.</strong></p></li>
+<li><p>SignalR supports two kinds of connections: Hub and PersistentConnection
+Both are working with Silverlight and JavaScript. </p></li>
+</ul>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/Thorium">Thorium</a> can be found on <a href="https://github.com/Thorium/SignalR-FSharp-Example">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
